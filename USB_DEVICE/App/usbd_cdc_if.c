@@ -33,6 +33,8 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 extern uint8_t rxBuf[];
+
+uint8_t serInfo[] = { 0x00, 0x01, 0xc2, 0x00, 0x00, 0x00, 0x08 };
 /* USER CODE END PV */
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
@@ -222,9 +224,18 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
   /*******************************************************************************/
     case CDC_SET_LINE_CODING:
 
+
+
+
     break;
 
     case CDC_GET_LINE_CODING:
+
+    	for(int i=0;i<7;i++)
+    	{
+    	*pbuf = serInfo[i];
+    	pbuf++;
+    	}
 
     break;
 

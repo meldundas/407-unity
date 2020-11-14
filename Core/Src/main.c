@@ -186,7 +186,7 @@ int main(void)
 
 	  parseRx();
 
-	  HAL_Delay(50);	//50mS till next tx
+	  HAL_Delay(20);	//20mS till next tx - was 50
   }
   /* USER CODE END 3 */
 }
