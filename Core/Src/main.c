@@ -54,8 +54,6 @@ SPI_HandleTypeDef hspi1;
 
 /* USER CODE BEGIN PV */
 
-uint8_t receive_data[64];
-uint8_t receive_serial[64];
 
 int16_t XYZ[3];
 uint16_t adcValues[3];
@@ -78,7 +76,7 @@ static void MX_I2S3_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_ADC1_Init(void);
 /* USER CODE BEGIN PFP */
-
+void parseRx(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -175,7 +173,6 @@ int main(void)
 	  checksum %=1000;	//3 digits
 	  sprintf(packet + 39, "%03d\r\n", checksum);
 
-	 // USBD_CDC_SetTxBuffer(&hUsbDeviceFS, packet, packetLength);
 	  CDC_Transmit_FS(packet, packetLength);  //micro usb 		-- strlen((const char*)myData)
 
 //	  HAL_UART_Transmit(&huart2, packet, packetLength, 500); //mini usb uart to stlink 	-- strlen((const char*)myData)
