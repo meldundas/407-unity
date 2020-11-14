@@ -183,7 +183,7 @@ int main(void)
 
 	  parseRx();
 
-	  HAL_Delay(20);	//20mS till next tx - was 50
+//	  HAL_Delay(10);	//20mS till next tx - was 50
   }
   /* USER CODE END 3 */
 }

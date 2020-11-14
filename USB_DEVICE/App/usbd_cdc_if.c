@@ -245,12 +245,13 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
 //    	*pbuf = serInfo[i];
 //    	pbuf++;
 //    	}
+
     	portConfig.dwDTERate = 115200;
     	portConfig.bCharFormat = 0;
     	portConfig.bParityType = 0;
     	portConfig.bDataBits = 8;
 
-    	*pbuf = &portConfig;
+    	pbuf = &portConfig;
 
     break;
 
