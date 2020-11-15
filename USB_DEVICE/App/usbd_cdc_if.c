@@ -34,8 +34,6 @@
 /* Private variables ---------------------------------------------------------*/
 extern uint8_t rxBuf[];
 
-uint8_t serInfo[] = { 0x00, 0x01, 0xc2, 0x00, 0x00, 0x00, 0x08 };
-
 struct {
 	uint32_t dwDTERate;		//Data terminal rate, in bits per second
 	uint8_t	bCharFormat;	//Stop bits 0 - 1 Stop bit, 1 - 1.5 Stop bits, 2 - 2 Stop bits
@@ -43,6 +41,15 @@ struct {
 	uint8_t bDataBits;		//Number Data bits (5, 6, 7, 8 or 16)
 }portConfig;
 
+USBD_CDC_LineCodingTypeDef comPortConfig =
+{
+	115200,	//Data terminal rate, in bits per second
+	0,		//Stop bits 0 - 1 Stop bit, 1 - 1.5 Stop bits, 2 - 2 Stop bits
+	0,		//Parity 0 - None, 1 - Odd, 2 - Even, 3 - Mark, 4 - Space
+	8		//Number Data bits (5, 6, 7, 8 or 16)
+};
+
+uint8_t lineCoding[7] = { 0 };
 
 /* USER CODE END PV */
 
@@ -192,6 +199,8 @@ static int8_t CDC_DeInit_FS(void)
 static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
 {
   /* USER CODE BEGIN 5 */
+//	USBD_CDC_LineCodingTypeDef *comPortConfig = (USBD_CDC_LineCodingTypeDef *)pbuf;
+
   switch(cmd)
   {
     case CDC_SEND_ENCAPSULATED_COMMAND:
@@ -233,25 +242,19 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
   /*******************************************************************************/
     case CDC_SET_LINE_CODING:
 
-
-
+    	for(int i=0; i<7;i++)
+    	{
+    		lineCoding[i] = pbuf[i]; //save line coding
+    	}
 
     break;
 
     case CDC_GET_LINE_CODING:
 
-//    	for(int i=0;i<7;i++)
-//    	{
-//    	*pbuf = serInfo[i];
-//    	pbuf++;
-//    	}
-
-    	portConfig.dwDTERate = 115200;
-    	portConfig.bCharFormat = 0;
-    	portConfig.bParityType = 0;
-    	portConfig.bDataBits = 8;
-
-    	pbuf = &portConfig;
+    	for(int i=0; i<7;i++)
+    	{
+    		pbuf[i] = lineCoding[i]; //retrieve saved line coding
+    	}
 
     break;
 
