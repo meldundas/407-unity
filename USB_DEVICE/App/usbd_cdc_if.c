@@ -32,7 +32,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-extern uint8_t rxBuf[];
+extern int8_t rxBuf[];
 
 struct {
 	uint32_t dwDTERate;		//Data terminal rate, in bits per second

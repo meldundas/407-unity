@@ -64,7 +64,11 @@ int8_t inputPort[8];
 #define rxSerialBytes 18
 int16_t rxUSB = 15;
 uint8_t packet[packetLength+1] = {0}; //null needed at end for string function
-uint8_t rxBuf[rxSerialBytes] = {0};
+int8_t rxBuf[rxSerialBytes] = {0};
+
+uint32_t currentTicks = 0;
+uint8_t packetTxTime = 2; //mS tx time
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -128,6 +132,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	if(uwTick - currentTicks >= packetTxTime)
+	{
+	currentTicks = uwTick; //update time
+
 	checksum=0;
 
 	BSP_ACCELERO_GetXYZ(XYZ);
@@ -180,10 +188,10 @@ int main(void)
 	  //printf("%s", myData);  //semihosting - console
 	  count++;
 	  count%=1000;	//000-999
-
+	}
 	  parseRx();
 
-	  HAL_Delay(1);	//20mS till next tx - was 50
+	 // HAL_Delay(1);	//20mS till next tx - was 50
   }
   /* USER CODE END 3 */
 }
