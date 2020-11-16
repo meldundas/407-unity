@@ -55,7 +55,7 @@ SPI_HandleTypeDef hspi1;
 /* USER CODE BEGIN PV */
 
 
-int16_t XYZ[3];
+int16_t XYZ[3] = { 0 };
 uint16_t adcValues[3];
 int8_t inputPort[8];
 
@@ -67,7 +67,7 @@ uint8_t packet[packetLength+1] = {0}; //null needed at end for string function
 int8_t rxBuf[rxSerialBytes] = {0};
 
 uint32_t currentTicks = 0;
-uint8_t packetTxTime = 2; //mS tx time
+uint8_t packetTxTime = 10; //mS tx time between packets
 
 /* USER CODE END PV */
 
