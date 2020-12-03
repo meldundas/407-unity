@@ -67,7 +67,7 @@ uint8_t packet[packetLength+1] = {0}; //null needed at end for string function
 int8_t rxBuf[rxSerialBytes] = {0};
 
 uint32_t currentTicks = 0;
-uint8_t packetTxTime = 10; //mS tx time between packets
+uint8_t packetTxTime = 20; //mS tx time between packets
 
 /* USER CODE END PV */
 
@@ -656,7 +656,7 @@ void parseRx(void)
 
 		  }
 
-	  rxBuf[0]=0;
+//	  rxBuf[0]=0;
 
 
 }
